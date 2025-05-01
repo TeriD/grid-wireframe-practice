@@ -19,57 +19,103 @@ body {
     margin: auto;
 }
 
+/* Shared styles */
 header,
-.aside-top,
-main,
-.aside-bottom,
-footer {
-    border-radius: 10px;
+footer,
+.aside {
     text-align: center;
     font-weight: bold;
     padding: 16px;
     color: white;
 }
 
-/* Specific areas */
 header {
     grid-area: header;
-    background-color: #8c2a59;
-    color: white;
-    padding: 16px;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-
-.aside-top {
-    grid-area: aside-top;
-    background-color: #2471a3;
-}
-
-main {
-    grid-area: main;
-    background-color: #27ae60;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-radius: 10px;
-}
-
-.column {
-    background-color: #e91e63;
-    padding: 16px;
-    border-radius: 8px;
-}
-
-.aside-bottom {
-    grid-area: aside-bottom;
-    background-color: #17a2b8;
+    background-color: #ec87c0;
 }
 
 footer {
     grid-area: footer;
     background-color: #e67e22;
+}
+
+.aside:first-of-type {
+    grid-area: aside-top;
+    background-color: #2196f3;
+}
+
+.aside:last-of-type {
+    grid-area: aside-bottom;
+    background-color: #2196f3;
+}
+
+/* Main: Mobile layout */
+main {
+    grid-area: main;
+    background-color: #20ce84;
+    /* green background in mobile */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+}
+
+/* Column boxes */
+.column {
+    background-color: #e91e63;
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1000px;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto 200px auto;
+        grid-template-areas:
+            "header header header"
+            "aside-top main aside-bottom"
+            "footer footer footer";
+    }
+
+    main {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "article article article"
+            "col1 col2 col3";
+    }
+
+    /* Add "Article" title */
+        main::before {
+            content: "Article";
+            grid-area: article;
+            text-align: center;
+            font-weight: bold;
+            padding: 4px 0;
+            /* Top-bottom padding minimal */
+            margin-bottom: -4px;
+            /* Pulls it closer to columns */
+            align-self: end;
+            color: white;
+            font-size: 1rem;
+            /* Optional: match font sizing */
+            line-height: 1;
+            /* Tighten line spacing */
+        }
+
+    .column:nth-child(1) {
+        grid-area: col1;
+    }
+
+    .column:nth-child(2) {
+        grid-area: col2;
+    }
+
+    .column:nth-child(3) {
+        grid-area: col3;
+    }
 }
